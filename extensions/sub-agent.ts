@@ -68,7 +68,7 @@ export default function (pi: ExtensionAPI) {
 					status: s.status || "pending",
 					dependencies: s.dependencies || [],
 				}));
-				ctx.ui.notify(`✅ 已设置 ${steps.length} 个步骤`, "info");
+				ctx.ui.notify(`✅ 已设置 ${plan.steps.length} 个步骤`, "info");
 				showPlan(ctx);
 				updateWidget(ctx);
 			} catch (e) {
@@ -94,6 +94,8 @@ export default function (pi: ExtensionAPI) {
 				return;
 			}
 
+			// Ensure all steps without explicit status are treated as pending
+			plan.steps.forEach((s) => { if (!s.status) s.status = "pending"; });
 			const next = getNextStep(plan);
 			if (!next) {
 				const allDone = plan.steps.every((s) => s.status === "completed");
@@ -243,11 +245,9 @@ export default function (pi: ExtensionAPI) {
 		ctx.ui.setWidget("sub-agent", (_tui: any, theme: any) => {
 			let text = theme.fg("accent", "🎯 ") + theme.fg("text", plan!.goal);
 			if (running) {
-				text += "
-" + theme.fg("dim", `▶️ ${running.name}`);
+				text = text + String.fromCharCode(10) + theme.fg("dim", "▶️ " + running.name);
 			}
-			text += "
-" + theme.fg("dim", `进度: ${done}/${total}`);
+			text = text + String.fromCharCode(10) + theme.fg("dim", "进度: " + done + "/" + total);
 			return new Text(text, 0, 0);
 		});
 	}
