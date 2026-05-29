@@ -1,0 +1,12 @@
+{
+  "name": "my-pi-workflow",
+  "version": "1.0.0",
+  "description": "我的 pi 工作流配置 - 系统学习 pi 并实践",
+  "keywords": ["pi-package"],
+  "pi": {
+    "extensions": ["./extensions"],
+    "skills": ["./skills"],
+    "prompts": ["./prompts"],
+    "themes": ["./themes"]
+  }
+}
