@@ -1,35 +1,30 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
-export default async function (pi: ExtensionAPI) {
-	try {
-		const res = await fetch("http://localhost:11434/api/tags");
-		const data = (await res.json()) as {
-			models: Array<{ name: string; model: string }>;
-		};
+export default function (pi: ExtensionAPI) {
+	// 直接注册已知的本地模型，不依赖动态获取
+	// 用户可以通过环境变量或修改代码添加更多模型
 
-		if (!data.models || data.models.length === 0) {
-			console.log("Ollama: 没有可用的本地模型");
-			return;
-		}
+	const models = [
+		{
+			id: "qwen2.5vl:7b",
+			name: "Qwen 2.5 VL 7B (本地)",
+			reasoning: false,
+			input: ["text", "image"],
+			cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+			contextWindow: 128000,
+			maxTokens: 4096,
+		},
+	];
 
-		pi.registerProvider("ollama", {
-			name: "Ollama (本地 LLM)",
-			baseUrl: "http://localhost:11434/v1",
-			apiKey: "ollama",
-			api: "openai-completions",
-			models: data.models.map((m) => ({
-				id: m.name,
-				name: m.name,
-				reasoning: false,
-				input: ["text"],
-				cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
-				contextWindow: 128000,
-				maxTokens: 4096,
-			})),
-		});
+	pi.registerProvider("ollama", {
+		name: "Ollama (本地 LLM)",
+		baseUrl: "http://localhost:11434/v1",
+		apiKey: "ollama",
+		api: "openai-completions",
+		models,
+	});
 
-		console.log("Ollama: 已注册 " + data.models.length + " 个本地模型");
-	} catch (e) {
-		console.log("Ollama: 服务器未启动 (http://localhost:11434)");
-	}
+	pi.on("session_start", async (_event, ctx) => {
+		ctx.ui.notify("🦙 Ollama Provider 已加载 (qwen2.5vl:7b)", "info");
+	});
 }
