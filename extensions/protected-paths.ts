@@ -1,78 +1,40 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import * as path from "node:path";
 
+const EXACT = [".env", ".env.local", ".env.production"];
+const DIRS = ["node_modules", "dist", "build", ".git", "secrets"];
+const SUFFIX = [".key", ".pem"];
+
 export default function (pi: ExtensionAPI) {
-	// 保护路径列表
-	const PROTECTED_PATHS = [
-		".env",
-		".env.local",
-		".env.production",
-		"node_modules/",
-		"dist/",
-		"build/",
-		".git/",
-		"secrets/",
-		"*.key",
-		"*.pem",
-	];
-
-	function isProtected(filePath: string, cwd: string): string | null {
-		const relative = path.relative(cwd, path.resolve(cwd, filePath));
-
-		for (const pattern of PROTECTED_PATHS) {
-			if (pattern.endsWith("/")) {
-				if (
-					relative.startsWith(pattern) ||
-					relative.includes("/" + pattern)
-				) {
-					return pattern;
-				}
-			} else if (pattern.startsWith("*.")) {
-				if (relative.endsWith(pattern.slice(1))) {
-					return pattern;
-				}
-			} else {
-				if (
-					relative === pattern ||
-					relative.endsWith("/" + pattern)
-				) {
-					return pattern;
-				}
-			}
+	function isProtected(fp: string, cwd: string): string | null {
+		const base = path.basename(fp);
+		if (EXACT.includes(base)) return base;
+		const norm = path.resolve(cwd, fp).split(path.sep).join("/");
+		for (const d of DIRS) {
+			if (norm.includes("/" + d + "/") || norm.endsWith("/" + d)) return d + "/";
+		}
+		for (const s of SUFFIX) {
+			if (base.endsWith(s)) return "*" + s;
 		}
 		return null;
 	}
 
 	pi.on("tool_call", async (event, ctx) => {
-		const toolName = event.toolName;
-
-		// 拦截 write/edit 工具
-		if (toolName !== "write" && toolName !== "edit") return;
-
-		const filePath = event.input.path as string;
-		const protectedPattern = isProtected(filePath, ctx.cwd);
-
-		if (protectedPattern) {
-			if (ctx.hasUI) {
-				const ok = await ctx.ui.confirm(
-					"🛡️ 受保护路径",
-					`文件 ${filePath} 匹配保护模式: ${protectedPattern}\n\n确认写入？`,
-				);
-
-				if (!ok) {
-					return {
-						block: true,
-						reason: `路径受保护: ${protectedPattern}`,
-					};
-				}
-				return; // 确认后允许执行
-			} else {
-				return {
-					block: true,
-					reason: `路径受保护: ${protectedPattern}`,
-				};
+		if (event.toolName !== "write" && event.toolName !== "edit") return;
+		const p = event.input.path as string;
+		const pat = isProtected(p, ctx.cwd);
+		if (!pat) return;
+		if (ctx.hasUI) {
+			const ok = await ctx.ui.confirm(
+				"🛡️ 受保护路径",
+				"文件 " + p + " 匹配保护模式: " + pat + "\n\n确认写入？",
+			);
+			if (!ok) {
+				return { block: true, reason: "路径受保护: " + pat };
 			}
+			return;
 		}
+		return { block: true, reason: "路径受保护: " + pat };
 	});
 
 	pi.on("session_start", async (_event, ctx) => {
