@@ -48,3 +48,4 @@ export default function (pi: ExtensionAPI) {
 		ctx.ui.notify("🔒 Permission Gate 已激活", "info");
 	});
 }
+// MODIFIED
