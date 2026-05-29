@@ -1,42 +1,64 @@
 # Pi 学习进度追踪
 
-> 计划详情见 [plan/plan-001.md](plan/plan-001.md)
+## 已完成 ✅
 
----
+### Phase 1: 基础夯实
+- [x] 环境配置审计
+- [x] 5 个 Prompt Templates (/review, /test, /refactor, /doc, /debug)
+- [x] 快捷键肌肉记忆
 
-## Phase 1: 基础夯实 ✅
+### Phase 2: Skills 技能包
+- [x] 3 个 Skills (typescript-testing, react-patterns, api-design)
 
-- [x] 1.1 环境配置审计
-- [x] 1.2 5 个 Prompt Templates
-- [x] 1.3 快捷键肌肉记忆
+### Phase 3: Extensions 扩展开发
+- [x] Permission Gate (危险命令拦截)
+- [x] Protected Paths (敏感路径保护)
+- [x] Git Checkpoint (自动 stash)
+- [x] Commands (/stats, /todos, /clear-history, /branch-name)
+- [x] Todo UI (待办管理)
 
-## Phase 2: Skills 技能包开发 ✅
+### Phase 4: 高级扩展
+- [x] Custom Compaction (记忆压缩)
+- [x] Custom Footer (状态栏)
+- [x] Model Status (模型指示器)
 
-- [x] 2.1 3 个 Skills
-- [x] 2.2 社区 Skills 安装
+### Phase 5: 打包与分享
+- [x] Pi Package 配置
+- [x] GitHub 仓库 (https://github.com/howard-huang/my-pi-workflow)
 
-## Phase 3: Extensions 扩展开发 ✅
+### Phase 6: 进阶探索
+- [x] MCP 服务器集成 (filesystem)
+- [x] 自定义 Provider (Ollama 本地 LLM)
+- [x] 子代理系统设计文档
 
-- [x] 3.1 Permission Gate 扩展 — 拦截 AI bash + 用户 !bash 危险命令
-- [x] 3.2 Protected Paths 扩展 — 保护 .env, node_modules 等敏感路径
-- [x] 3.3 Git Checkpoint 扩展 — 自动 stash + `/restore-checkpoint`
-- [x] 3.4 自定义命令扩展 — `/stats`, `/clear-history`, `/branch-name`
-- [x] 3.5 Todo UI 扩展 — 自定义工具 + Widget + 渲染
+## 当前配置
 
-## Phase 4: 高级扩展 ✅
+**默认模型**: claude-sonnet-4 (云)
+**本地模型**: llama3:latest, qwen2.5vl:7b (Ollama)
+**扩展**: 11 个已加载
 
-- [x] 4.1 自定义 Compaction — 保留代码相关消息记忆
-- [x] 4.2 自定义 Footer — `/footer` 切换
-- [x] 4.3 模型状态指示器 — 模型 + thinking 状态
+## 使用指南
 
-## Phase 5: 打包与分享 ✅
+### 切换模型
+```
+/model ccswitch/claude-sonnet-4  # 云模型，功能完整
+/model ollama/llama3:latest      # 本地模型，隐私安全
+```
 
-- [x] 5.1 Pi Package 打包 — `package.json` 已配置
-- [x] 5.2 Git 提交 — 已提交到本地仓库
+### 常用命令
+```
+/stats        # 会话统计
+/todos        # 待办事项
+/plan         # 子代理计划
+/mcp-list     # MCP 服务器列表
+/footer       # 切换自定义页脚
+```
 
-## Phase 6: 进阶探索 ⏳
+## 注意事项
 
-- [ ] 选择 1-2 个进阶任务探索
+- Ollama 本地模型仅支持纯文本对话，不支持工具调用
+- 需要工具功能时请切换回云模型
+- 子代理系统需等待 pi 架构支持跨命令状态共享
 
 ---
 
