@@ -8,6 +8,15 @@ export default function (pi: ExtensionAPI) {
 		api: "openai-completions",
 		models: [
 			{
+				id: "llama3:latest",
+				name: "Llama 3 (本地)",
+				reasoning: false,
+				input: ["text"],
+				cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+				contextWindow: 128000,
+				maxTokens: 4096,
+			},
+			{
 				id: "qwen2.5vl:7b",
 				name: "Qwen 2.5 VL 7B (本地)",
 				reasoning: false,
@@ -24,6 +33,6 @@ export default function (pi: ExtensionAPI) {
 	});
 
 	pi.on("session_start", async (_event, ctx) => {
-		ctx.ui.notify("🦙 Ollama 已加载 (qwen2.5vl:7b)", "info");
+		ctx.ui.notify("🦙 Ollama 已加载 (llama3, qwen2.5vl)", "info");
 	});
 }
