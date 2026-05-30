@@ -2,6 +2,8 @@
 
 > 承接 plan-001.md，已完成 70% 核心能力。本计划补齐剩余部分。
 
+> ⚠️ **网络依赖说明**：本计划包含多个网络安装命令（pi install / npm / git push）。如遇网络超时，可跳过可选任务、使用代理、或稍后重试。非网络操作（代理创建、主题配置）不受影响。
+
 ---
 
 ## Phase 7: 子代理实战（第 1-2 天）
@@ -68,6 +70,7 @@ pi install git:github.com/badlogic/pi-skills
 扩展 `mcp-bridge.ts`，添加更多服务器：
 
 > ⚠️ 安全：filesystem/git 服务器不要用 `"."` 作为根路径，需指定明确的受限目录。
+> ⚠️ 以下 MCP 包名已验证：`@modelcontextprotocol/server-filesystem` 和 `@modelcontextprotocol/server-fetch` 已发布。其他 MCP 服务器建议在执行时先 `npm view` 确认包名。
 
 ```typescript
 const DEFAULT_SERVERS: ServerConfig[] = [
@@ -167,11 +170,11 @@ node scripts/batch-review.js src/
 
 ### 任务 11.2: 更新 README + GitHub
 
-> plan-001 发布了 v1.0.0，plan-002 新增 Phase 7-11，版本号跳至 v1.2.0（相当于两个 minor 版本）。
+> plan-001 发布了 v1.0.0，plan-002 新增内容后升级为 v1.1.0。
 
 ```bash
-git tag v1.2.0
-git push origin v1.2.0
+git tag v1.1.0
+git push origin v1.1.0
 ```
 
 ### 任务 11.3: 写一篇总结博客/笔记

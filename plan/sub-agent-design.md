@@ -164,3 +164,5 @@ pi 的 Session Tree 天然支持子代理隔离：
 
 *设计日期: 2026-05-29*
 *状态: 设计完成，待实现*
+
+> ⚠️ **注意**：此设计文档参考了基亍 pi-subagents 的现有实现（reviewer-zh 代理 + review-flow chain 已可用），但具体接口与本设计不完全一致。实际实现见 `~/.pi/agent/agents/reviewer-zh.md` 和 `~/.pi/agent/chains/review-flow.chain.md`。
