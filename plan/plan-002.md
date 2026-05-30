@@ -81,6 +81,23 @@ const DEFAULT_SERVERS: ServerConfig[] = [
 ];
 ```
 
+#### 8.2.1 SQLite MCP 接入（进行中）
+
+**已完成：**
+- [x] 创建测试数据库 `test.db`（node:sqlite，含 users/products/orders/order_items 表）
+- [x] 修改 `mcp-bridge.ts`：
+  - SQLite DB 路径自动检测（优先级：`SQLITE_DB_PATH` env → `./test.db` → `./database.db`）
+  - Windows 兼容：`npx` → `cmd.exe /c npx`（cross-spawn `shell: false` 限制）
+  - 简化导入路径：`@modelcontextprotocol/sdk/dist/esm/...` → `@modelcontextprotocol/sdk/client`
+- [x] 在 `C:\Users\pc\.pi\agent\extensions\` 安装 `@modelcontextprotocol/sdk` 依赖（ESM 包，jiti 需 `await import()`）
+
+**阻塞问题：**
+- [ ] `client.callTool()` 调用即抛 `Connection closed`，底层 `client.request()` 正常
+  - 疑似根因：`CallToolResultSchema` 的 Zod schema 与环境中 Zod v3/v4 版本冲突
+  - 已确认：stdio 管道通信完全正常，`tools/list` 和 `tools/call` 原语 1ms 内返回正确 JSON
+
+**待解决：** 修复 `callTool()` 的 Zod 兼容性问题后联调验证
+
 ### 任务 8.3: pi-web-access（可选）
 
 ```bash
@@ -88,7 +105,7 @@ pi install npm:pi-web-access
 ```
 
 ### 验收标准
-- [ ] 社区 skills 试用成功
+- [x] 社区 skills 试用成功
 - [ ] 至少 3 个 MCP 服务器可用
 - [ ] `/mcp-list` 显示所有服务器
 
