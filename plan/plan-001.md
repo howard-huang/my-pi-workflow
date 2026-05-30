@@ -1,5 +1,11 @@
 # 🎯 Pi 潜力挖掘执行计划
 
+> ⚠️ **此计划制定于 2026-05-29。实际执行中有重大变更：**
+> - `git-checkpoint` 已废弃删除（`--include-untracked` 吞用户文件 + 无上限 stash + 还原用户删除）
+> - 子代理改用 `pi-subagents` 官方包，不自研
+> - `./extensions/` 目录已移除，扩展统一在 `~/.pi/agent/extensions/`
+> - 完整状态见 `STATUS.md`，最佳实践见 `PI-BEST-PRACTICES.md`
+
 ## 项目目标
 系统性地掌握并应用 pi 的所有核心能力，从基础用户进阶为 pi 扩展开发者，最终能自定义工作流并分享成果。
 
@@ -367,8 +373,14 @@ export default function (pi: ExtensionAPI) {
 - [ ] 尝试让 AI 修改 `node_modules/` 下文件被拦截
 - [ ] 确认后可以正常写入
 
-### 任务 3.3: Git Checkpoint 扩展
+### 任务 3.3: Git Checkpoint 扩展 ~~（已废弃）~~
 **目标**: 自动保存工作进度
+
+> ❌ **此扩展已于 2026-05-30 删除。原因：**
+> 1. `--include-untracked` 导致用户创建的新文件被 git stash 吞掉
+> 2. 无上限 stash 导致仓库膨胀（峰值 181 个）
+> 3. `turn_start` 时 stash 会还原用户主动删除的文件
+> 4. pi 自带 session 分支机制，不需要外部 git stash
 
 **文件**: `~/.pi/agent/extensions/git-checkpoint.ts`
 
@@ -891,7 +903,7 @@ pi install git:github.com/yourname/my-pi-workflow@v1.0.0
 | 任务 | 难度 | 价值 |
 |------|------|------|
 | 自定义 Provider（接入本地 LLM） | ⭐⭐⭐⭐⭐ | 私有化部署 |
-| 子代理系统（用扩展实现） | ⭐⭐⭐⭐⭐ | 复杂任务分解 |
+| 子代理系统 | → 采用 pi-subagents 官方包 | ⭐⭐⭐⭐⭐ | 复杂任务分解 |
 | Plan Mode（用扩展实现） | ⭐⭐⭐⭐ | 复杂项目规划 |
 | 自定义编辑器（Vim/Emacs 模式） | ⭐⭐⭐⭐ | 编辑器偏好 |
 | 游戏扩展（Snake/Doom） | ⭐⭐⭐ | 娱乐 |
@@ -915,7 +927,7 @@ pi install git:github.com/yourname/my-pi-workflow@v1.0.0
 □ Phase 3 完成
   □ 3.1 Permission Gate 扩展
   □ 3.2 Protected Paths 扩展
-  □ 3.3 Git Checkpoint 扩展
+  □ ~~3.3 Git Checkpoint 扩展~~ ❌ 已废弃
   □ 3.4 自定义命令扩展
   □ 3.5 Todo UI 扩展
 
