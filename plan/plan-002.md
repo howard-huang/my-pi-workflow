@@ -8,6 +8,8 @@
 
 > plan-001 只读了 pi-subagents 文档，未实际动手。
 
+> ⚠️ **前置说明**：旧 AGENTS.md 中"跨命令状态共享"限制指的是自定义 TypeScript 扩展方案，`pi-subagents` 通过 chain 变量 `{previous}` `{outputs.name}` 和输出文件已解决此问题。
+
 ### 任务 7.1: 安装 pi-subagents
 
 ```bash
@@ -65,12 +67,14 @@ pi install git:github.com/badlogic/pi-skills
 
 扩展 `mcp-bridge.ts`，添加更多服务器：
 
+> ⚠️ 安全：filesystem/git 服务器不要用 `"."` 作为根路径，需指定明确的受限目录。
+
 ```typescript
 const DEFAULT_SERVERS: ServerConfig[] = [
-  { name: "filesystem", command: "npx", args: ["-y", "@modelcontextprotocol/server-filesystem", "."] },
+  { name: "filesystem", command: "npx", args: ["-y", "@modelcontextprotocol/server-filesystem", "/allowed/path"] },
   { name: "sqlite", command: "npx", args: ["-y", "@modelcontextprotocol/server-sqlite", "data.db"] },
   { name: "fetch", command: "npx", args: ["-y", "@modelcontextprotocol/server-fetch"] },
-  { name: "git", command: "npx", args: ["-y", "@modelcontextprotocol/server-git", "."] },
+  { name: "git", command: "npx", args: ["-y", "@modelcontextprotocol/server-git", "/path/to/repo"] },
 ];
 ```
 
@@ -112,6 +116,8 @@ pi install npm:pi-web-access
 
 ### 任务 9.2: 在 Footer/Widget 中引用主题色
 
+> `/theme` 命令需确认 pi 是否内置支持。如不支持，仅创建 JSON 配置文件作为项目资产。
+
 ### 验收标准
 - [ ] 主题文件创建
 - [ ] `/theme my-theme` 可切换
@@ -121,7 +127,15 @@ pi install npm:pi-web-access
 
 ## Phase 10: SDK 集成（第 6-7 天）
 
-### 任务 10.1: 程序化启动 pi
+### 任务 10.1: 验证 SDK 可用性
+
+**先确认包存在**，否则降级为 CLI 子进程方案：
+
+```bash
+npm view @earendil-works/pi-coding-agent 2>&1
+```
+
+如果存在，程序化启动 pi：
 
 ```typescript
 import { Pi } from "@earendil-works/pi-coding-agent";
@@ -152,6 +166,8 @@ node scripts/batch-review.js src/
 补充 Phase 7-10 的实践经验。
 
 ### 任务 11.2: 更新 README + GitHub
+
+> plan-001 发布了 v1.0.0，plan-002 新增 Phase 7-11，版本号跳至 v1.2.0（相当于两个 minor 版本）。
 
 ```bash
 git tag v1.2.0

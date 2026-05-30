@@ -58,8 +58,12 @@
 
 - Ollama 本地模型仅支持纯文本对话，不支持工具调用
 - 需要工具功能时请切换回云模型
-- 子代理系统需等待 pi 架构支持跨命令状态共享
+- 子代理系统 — 采用 pi-subagents（已验证可用）
+
+## Phase 7 进度
+- [x] pi-subagents 安装 + reviewer-zh 代理 + review-flow chain
+- [x] reviewer-zh 成功运行，产出审查报告
 
 ---
 
-*最后更新: 2026-05-29*
+*最后更新: 2026-05-30*

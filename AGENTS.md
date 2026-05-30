@@ -68,15 +68,9 @@ GitHub: https://github.com/howard-huang/my-pi-workflow
 const norm = path.resolve(cwd, fp).split(path.sep).join("/");
 ```
 
-### 3. 跨命令状态共享
+### 3. 跨命令状态共享（已解决）
 
-子代理系统需要跨命令保存状态（plan → set-steps → next → done），但 pi 每个命令执行是独立上下文。
-
-**尝试方案**：
-- ❌ 内存变量 — 不共享
-- ❌ 文件系统 — 写入受限
-- ❌ sessionManager.setState — 不持久
-- ⏳ 等待 pi 官方支持
+~~子代理系统需要跨命令保存状态~~。pi-subagents 通过 chain 变量 `{previous}` `{outputs.name}` 和文件输出已解决。自定义 TypeScript 扩展方案不可行。
 
 ### 4. Provider 配置
 
