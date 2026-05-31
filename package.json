@@ -2,9 +2,18 @@
   "name": "my-pi-workflow",
   "version": "1.1.0",
   "description": "我的 pi 工作流配置 - 系统学习 pi 并实践",
-  "keywords": ["pi-package"],
+  "keywords": [
+    "pi-package"
+  ],
   "pi": {
-    "skills": ["./skills"],
-    "prompts": ["./prompts"]
+    "skills": [
+      "./skills"
+    ],
+    "prompts": [
+      "./prompts"
+    ]
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.78.0"
   }
 }

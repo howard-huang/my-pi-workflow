@@ -1,0 +1,24 @@
+# Pi 进阶计划 TODO
+
+> 最后更新: 2026-05-31 | v1.1.0
+
+---
+
+## Phase 7: 子代理实战 ✅
+
+## Phase 8: 生态集成 ✅
+
+## Phase 9: Themes ✅
+
+## Phase 10: SDK 集成 ✅
+
+## Phase 11: 收尾
+
+- [x] 11.1 PI-BEST-PRACTICES.md 完整（8 章）
+- [ ] 11.2 GitHub release v1.1.0
+- [ ] 11.3 总结笔记
+
+## 遗留问题
+
+- [ ] MCP Zod v3/v4 冲突 → 需探索子进程/CLI 方案
+- [ ] GitHub push 网络超时
