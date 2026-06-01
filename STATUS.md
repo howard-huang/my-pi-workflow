@@ -36,11 +36,11 @@
 - [x] SDK 验证通过（11 模型可用）
 - [x] `scripts/sdk-verify.mjs` + `scripts/batch-review.mjs`
 
-## ⬜ Phase 11: 收尾
+## ✅ Phase 11: 收尾
 
 - [x] PI-BEST-PRACTICES.md
-- [ ] GitHub release v1.1.0
-- [ ] 总结笔记
+- [x] GitHub release v1.1.0
+- [x] 总结笔记（PI-BEST-PRACTICES.md 即经验汇总）
 
 ---
 

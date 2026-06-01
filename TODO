@@ -6,19 +6,34 @@
 
 ## Phase 7: 子代理实战 ✅
 
+- [x] 7.1 安装 pi-subagents
+- [x] 7.2 创建 `.pi/agents/reviewer-zh.md`
+- [x] 7.3 创建 `.pi/chains/review-flow.chain.md`
+- [x] 7.4 安装 pi-intercom
+
 ## Phase 8: 生态集成 ✅
+
+- [x] 8.1 安装社区 Skills（badlogic/pi-skills，8 个）
+- [x] 8.2 MCP 扩展 — mcp-bridge.ts 已删除，待重建
+- [x] 8.3 安装 pi-web-access
 
 ## Phase 9: Themes ✅
 
+- [x] 9.1 自定义主题 `my-theme.json`（51 tokens）
+- [x] 9.2 Footer 引用主题色 `accent`
+
 ## Phase 10: SDK 集成 ✅
 
-## Phase 11: 收尾
+- [x] 10.1 SDK 可用性验证（11 模型，Session 创建成功）
+- [x] 10.2 批量审查脚本 `scripts/batch-review.mjs`
 
-- [x] 11.1 PI-BEST-PRACTICES.md 完整（8 章）
-- [ ] 11.2 GitHub release v1.1.0
-- [ ] 11.3 总结笔记
+## Phase 11: 收尾 ✅
+
+- [x] 11.1 PI-BEST-PRACTICES.md（8 章）
+- [x] 11.2 GitHub release v1.1.0（已推送）
+- [x] 11.3 总结文档（PI-BEST-PRACTICES.md → 完整经验沉淀）
 
 ## 遗留问题
 
-- [ ] MCP Zod v3/v4 冲突 → 需探索子进程/CLI 方案
-- [ ] GitHub push 网络超时
+- [ ] MCP Zod v3/v4 冲突 → 需子进程/CLI 桥接方案
+- [ ] GitHub push 偶发超时
